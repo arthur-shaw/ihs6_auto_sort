@@ -1,0 +1,7 @@
+# Notes files
+*.txt
+
+# irrelevant folders
+/docs/*
+/old/*
+/programs/*

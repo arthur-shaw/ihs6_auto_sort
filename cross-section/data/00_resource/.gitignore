@@ -1,0 +1,6 @@
+# all Stata data files except calories and conversion factors
+*.dta
+!calories.dta
+!IHS4 Conversion Factor Database2.dta
+!calories_updated_05_08.dta
+!IHS4 units to IHS5 units converstion factor.dta
