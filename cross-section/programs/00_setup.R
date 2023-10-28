@@ -16,6 +16,82 @@ script_dir <- prog_dir
 output_dir <- paste0(proj_dir, "output/")    # /output/
 
 # =============================================================================
+# Install packages
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Install packages used for provisioning other packages
+# -----------------------------------------------------------------------------
+
+# for package installation
+if (!require("pak")) {
+    install.packages("pak")
+}
+
+# for iteration over list of packages
+if (!require("purrr")) {
+    install.packages("purrr")
+}
+
+if (!require("stringr")) {
+  install.packages("stringr")
+}
+
+# -----------------------------------------------------------------------------
+# Install any missing requirements
+# -----------------------------------------------------------------------------
+
+#' Install package if missing on system
+#' 
+#' @param package Character. Name of package to install.
+#' @importFrom stringr str_detect str_locate str_sub
+#' @importFrom pak pak
+install_if_missing <- function(package) {
+
+    # preserve original package specification
+    package_original <- package
+
+    # create package name that strips out package name from repo address
+    slash_pattern <- "\\/"
+    if (stringr::str_detect(string = package, pattern = slash_pattern) ) {
+        slash_position <- stringr::str_locate(
+            string = package,
+            pattern = slash_pattern
+        )
+        package <- stringr::str_sub(
+            string = package,
+            start = slash_position[[1]] + 1
+        )
+    }
+
+    if (!require(package, character.only = TRUE)) {
+        pak::pak(package_original)
+    }
+
+}
+
+# enumerate packages required
+required_packages <- c(
+    # _get_data.R
+    "fs",
+    "arthur-shaw/susoapi",
+    "arthur-shaw/susoflows",
+    "glue",
+    "dplyr",
+    "zip",
+    "haven",
+    # _execute_workflow.R
+    "arthur-shaw/susoreview",
+    "writexl"
+)
+
+# install any missing requirements
+purrr::walk(
+    .x = required_packages,
+    .f = ~ install_if_missing(.x)
+)
+
+# =============================================================================
 # Purge stale data
 # =============================================================================
 

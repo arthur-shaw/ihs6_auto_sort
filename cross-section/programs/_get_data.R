@@ -4,6 +4,7 @@
 
 # prepare
 # - set file paths
+# - install packages, as needed
 # - purge prior data
 print("---- 00 Preparation -----")
 source(paste0(script_dir, "00_setup.R"))
