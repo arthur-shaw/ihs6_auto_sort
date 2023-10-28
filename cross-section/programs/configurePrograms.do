@@ -270,6 +270,6 @@ file write filePaths `"# parameters"' 									_n
 file write filePaths `"serverDetails 	<- "serverDetails.R""' 			_n
 file write filePaths `"stataVersion 	<- `stataVersion'"'				_n
 file write filePaths `"statusesToReject <- c(`statusesToReject')"' 		_n
-file write filePaths `"pattern 			<- "`qnrName'""' 				_n
+file write filePaths `"qnr_expr 		<- "`qnrName'""' 				_n
 file write filePaths "maxUnanswered 	<- `maxUnanswered'" 			_n
 file close filePaths
